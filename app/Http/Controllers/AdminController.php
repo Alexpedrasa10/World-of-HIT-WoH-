@@ -12,40 +12,32 @@ use Illuminate\Support\Str;
 class AdminController extends Controller
 {
     
-    /* 
-        Como administrador quiero dar de alta un jugador. OK
-        Como administrador quiero dar de alta y modificar items. 
-        Como jugador quiero equiparme un item.
-        Como jugador quiero atacar a otro jugador con un golpe cuerpo a cuerpo.
-        Como jugador quiero atacar a otro jugador con un golpe a distancia.
-        Como jugador quiero atacar a otro jugador con mi ulti.
-        Como administrador queremos ver que jugadores pueden tirar su ulti. 
-    */
     public function createUser (Request $request)
     {
         Validator::make($request->toArray(), [
             'email' => ['required'],
             'name' => ['required'],
-            'type_id' => ['required'],
+            'type' => ['required'],
         ])->validate();
 
         if (User::where('email', $request->email)->exists()) {
             return response()->json(['message' => 'Email already exists'], 207);
         }
 
-        if (!Property::where([
-            ['id', $request->type_id] ,
-            ['category', 'TPLAY'],
-            ['code', '<>' ,null]
-        ])->exists()) {
-            return response()->json(['message' => 'Type user id not exists'], 207);
+        $type = Property::where([
+            'category' => 'TPLAY',
+            'code' => $request->type
+        ])->first();
+
+        if (empty($type)) {
+            return response()->json(['message' => 'Type item id not exists'], 207);        
         }
         
         $newUser = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'api_token' => Str::random(15),
-            'type_id' => $request->type_id,
+            'type_id' => $type->id,
         ]);
         
         return response()->json(['user' => $newUser], 201);
