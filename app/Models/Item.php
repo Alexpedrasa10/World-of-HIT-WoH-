@@ -20,11 +20,11 @@ class Item extends Model
 
     public function type() :BelongsTo
     {
-        return $this->belongsTo(Property::class, 'id', 'type_id');
+        return $this->belongsTo(Property::class, 'type_id', 'id');
     }
 
     public function users() :HasManyThrough
     {
-        return $this->hasManyThrough(User::class, UserItem::class);
+        return $this->hasManyThrough(User::class, UserItem::class, 'item_id', 'id', 'id', 'user_id');
     }
 }
