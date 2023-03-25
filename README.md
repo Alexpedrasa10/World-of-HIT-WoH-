@@ -1,10 +1,10 @@
 #  World-of-HIT-WoH- API
 
 ## Usage
-### Admin endpoints
-
 Always use the token of the user.
 Bearer token for admin: 101010101010101010
+### Admin endpoints
+
 
 POST /api/user
 
