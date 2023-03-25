@@ -114,7 +114,7 @@ POST api/assignItem
 {
     "item_id":1
 }
-
+```
 RESPONSE
 ```json
 {
@@ -127,7 +127,7 @@ POST api/attackBodyToBody
 {
     "victim_id":1
 }
-
+```
 RESPONSE
 ```json
 {
@@ -165,6 +165,7 @@ POST api/rangedAttack
     "victim_id":1
 }
 
+```
 RESPONSE
 ```json
 {
@@ -201,7 +202,7 @@ POST api/ulti
 {
     "victim_id":1
 }
-
+```
 RESPONSE
 ```json
 {
